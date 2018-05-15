@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <package name="commodityManager" extends="default">
+        <!--跳转商品管理页面-->
+        <action name="backManager.*">
+            <result>/WEB-INF/page/commodityManage.jsp</result>
+        </action>
+        <!--跳转添加商品页面-->
+        <action name="addCommodityView.*">
+            <result>/WEB-INF/page/addCommodity.jsp</result>
+        </action>
+        <!--跳转添加套餐页面-->
+        <action name="orderManger.*">
+            <result>/WEB-INF/page/orderList.jsp</result>
+        </action>
+        <!--跳转商家登录页面-->
+        <action name="sellersLoginView.*">
+            <result>/WEB-INF/page/login.jsp</result>
+        </action>
+        <!--添加商品方法-->
+        <action name="insertCommodity.*" class="commodityManageAction" method="insertCommodity">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <action name="updateCommodity.*" class="commodityManageAction" method="updateCommodity">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <action name="deleteCommodity.*" class="commodityManageAction" method="deleteCommodity">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--跳转添加商品类别页面-->
+        <action name="addClassifyView.*">
+            <result>/WEB-INF/page/addClassify.jsp</result>
+        </action>
+        <!--跳转修改商品类别页面-->
+        <action name="editClassifyView.*" class="commodityManageAction">
+            <result>/WEB-INF/page/editCommodity.jsp?commodityId=${commodityId}</result>
+        </action>
+        <!--加载一个菜品-->
+        <action name="loadCommodity.*" class="commodityManageAction" method="loadCommodity">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--添加商品类别方法-->
+        <action name="addClassify.*" class="commodityManageAction" method="addClassify">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--获取有商品的类别列表方法-->
+        <action name="getClassify.*" class="commodityManageAction" method="getClassify">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--获取所有类别方法-->
+        <action name="getClassifyAll.*" class="commodityManageAction" method="getClassifyAll">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--按商品类别获取所有商品-->
+        <action name="getCommodityArray.*" class="commodityManageAction" method="getCommodityArray">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--商品上下架-->
+        <action name="commodityVisible.*" class="commodityManageAction" method="commodityVisible">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+    </package>
+</struts>

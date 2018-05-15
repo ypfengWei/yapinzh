@@ -1,0 +1,28 @@
+{
+  "button": [
+    {
+      "type": "view",
+      "name": "堂吃",
+      "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${uri}/classify.jsp?sign=1&response_type=code&scope=snsapi_userinfo#wechat_redirect"
+    },
+    {
+      "type": "view",
+      "name": "外卖",
+      "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${uri}/classify.jsp?sign=0&response_type=code&scope=snsapi_userinfo#wechat_redirect"
+    },
+    {
+      "name": "商家",
+      "sub_button": [
+        {
+          "type": "view",
+          "name": "后台管理",
+          "url": "${uri}/sellersLoginView.do"
+        },{
+          "type": "scancode_waitmsg",
+          "name": "扫订单",
+          "key": "rselfmenu_0_0"
+        }
+      ]
+    }
+  ]
+}

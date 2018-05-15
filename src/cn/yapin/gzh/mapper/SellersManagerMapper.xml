@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.yapin.gzh.dao.SellersManagerMapper">
+    <resultMap id="BaseResultMap" type="sellers">
+        <id column="sellers_id" jdbcType="VARCHAR" property="sellersId"/>
+        <result column="sellers_name" jdbcType="VARCHAR" property="sellersName"/>
+        <result column="login_password" jdbcType="VARCHAR" property="loginPassword"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sellers_id,sellers_name, login_password
+</sql>
+    <select id="getSellers" parameterType="sellers" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sellers where sellers_name=#{sellersName} and login_password=#{loginPassword}
+    </select>
+    <insert id="insertSellers" parameterType="sellers">
+        insert sellers
+        (<include refid="Base_Column_List"/>)
+        values
+        (#{sellersId},#{sellersName},#{loginPassword})
+    </insert>
+</mapper>

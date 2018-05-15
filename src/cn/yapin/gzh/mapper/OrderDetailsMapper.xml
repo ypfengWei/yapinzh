@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yapin.gzh.dao.OrderDetailsMapper">
+    <resultMap id="BaseResultMap" type="orderDetails">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
+        <result column="commodity_id" jdbcType="VARCHAR" property="commodityId"/>
+        <result column="commodity_name" jdbcType="VARCHAR" property="commodityName"/>
+        <result column="commodity_number" jdbcType="INTEGER" property="commodityNumber"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, order_id, commodity_id,commodity_name, commodity_number, price
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_details
+        where order_id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order_details
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="orderDetails">
+    insert into order_details (id, order_id, commodity_id, commodity_name,
+      commodity_number, meal_id, meal_number,price)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{commodityId,jdbcType=VARCHAR},#{commodity_name,jdbcType=VARCHAR},
+      #{commodityNumber,jdbcType=INTEGER},#{price,jdbcType=DOUBLE})
+  </insert>
+    <insert id="insertSelective" parameterType="orderDetails">
+        insert into order_details
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="commodityId != null">
+                commodity_id,
+            </if>
+            <if test="commodityName != null">
+                commodity_name,
+            </if>
+            <if test="commodityNumber != null">
+                commodity_number,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityId != null">
+                #{commodityId,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityName != null">
+                #{commodityName,jdbcType=VARCHAR},
+            </if>
+            <if test="commodityNumber != null">
+                #{commodityNumber,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <!--批量新增第三方表中商品与类别关联的记录-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into order_details (order_id,commodity_id,commodity_name,commodity_number,price)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.orderId,jdbcType=VARCHAR},
+            #{item.commodityId,jdbcType=VARCHAR},
+            #{item.commodityName,jdbcType=VARCHAR},
+            #{item.commodityNumber,jdbcType=INTEGER},
+            #{item.price,jdbcType=DOUBLE}
+            )
+        </foreach>
+    </insert>
+</mapper>

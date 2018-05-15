@@ -1,0 +1,46 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.yapin.gzh.dao.AccessTokenMapper">
+    <!--微信公众平台全局唯一接口调用凭据-->
+    <select id="getLocalAccessToken" parameterType="string" resultType="accessToken">
+        select tokenid,appid, access_token,expires_in,create_date from access_token where appid=#{appid}
+    </select>
+    <insert id="insertAccessToken" parameterType="accessToken">
+        insert access_token (appid,access_token,expires_in,create_date) values (#{appid},#{access_token},#{expires_in},#{create_date})
+    </insert>
+    <update id="updateAccessToken" parameterType="accessToken">
+        update access_token set access_token=#{access_token}, expires_in=#{expires_in}, create_date=#{create_date} where appid=#{appid}
+    </update>
+    <!--公众号用于调用微信JS接口的临时票据管理(用户)-->
+    <select id="getLocalJsAccessToken" parameterType="string" resultType="jsAccessToken">
+        select js_tokenid,openid, access_token,expires_in,create_date from js_access_token where openid=#{openid}
+    </select>
+    <insert id="insertJsAccessToken" parameterType="jsAccessToken">
+        insert js_access_token (openid,access_token,expires_in,create_date) values (#{openid},#{access_token},#{expires_in},#{create_date})
+    </insert>
+    <update id="updateJsAccessToken" parameterType="jsAccessToken">
+        update js_access_token set access_token=#{access_token}, expires_in=#{expires_in}, create_date=#{create_date} where openid=#{openid}
+    </update>
+    <!--公众号用于调用微信JS接口的临时票据管理全局唯一-->
+    <select id="getLocalJsApiTicket" parameterType="string" resultType="jsApiTicket">
+        select js_api_tokenid,appid, ticket,expires_in,create_date from js_api_ticket where appid=#{appid}
+    </select>
+    <insert id="insertJsApiTicket" parameterType="jsApiTicket">
+        insert js_api_ticket (appid,ticket,expires_in,create_date) values (#{appid},#{ticket},#{expires_in},#{create_date})
+    </insert>
+    <update id="updateJsApiTicket" parameterType="jsApiTicket">
+        update js_api_ticket set ticket=#{ticket}, expires_in=#{expires_in}, create_date=#{create_date} where appid=#{appid}
+    </update>
+    <!--易联云打印机接口调用token管理-->
+    <select id="getLocalLianYunPringAccessToken" parameterType="string" resultType="lianYunPringAccessToken">
+        select tokenid,machine_code, access_token,refresh_token,expires_in,create_date from lianyun_token where machine_code=#{machine_code}
+    </select>
+    <insert id="insertYunPringAccessToken" parameterType="lianYunPringAccessToken">
+        insert lianyun_token (machine_code, access_token,refresh_token,expires_in,create_date) values (#{machine_code},#{access_token},#{refresh_token},#{expires_in},#{create_date})
+    </insert>
+    <update id="updateYunPringAccessToken" parameterType="lianYunPringAccessToken">
+        update lianyun_token set access_token=#{access_token},refresh_token=#{refresh_token},expires_in=#{expires_in}, create_date=#{create_date} where machine_code=#{machine_code}
+    </update>
+</mapper>

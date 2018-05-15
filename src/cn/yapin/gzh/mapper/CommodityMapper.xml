@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yapin.gzh.dao.CommodityMapper">
+    <resultMap id="BaseResultMap" type="commodity">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="introduce_picture" jdbcType="VARCHAR" property="introducePicture"/>
+        <result column="introduce_details" jdbcType="VARCHAR" property="introduceDetails"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="discount" jdbcType="DECIMAL" property="discount"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="visible" jdbcType="BOOLEAN" property="visible"/>
+    </resultMap>
+    <resultMap id="commodityCarryClassificationMap" type="commodity" extends="BaseResultMap">
+        <collection property="commodityClassificationSet" ofType="commodityClassification">
+            <id column="classification_id" jdbcType="INTEGER" property="id"/>
+            <result column="commodity_type" jdbcType="VARCHAR" property="commodityType"/>
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, introduce_picture, introduce_details, price, discount, remarks, create_date, 
+    update_date, visible
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from commodity
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="selectCommodityCarryClassification" parameterType="java.lang.String" resultMap="commodityCarryClassificationMap">
+       SELECT commodity.id,commodity.`name`,commodity.price,commodity.discount,commodity.introduce_picture,commodity.introduce_details, commodity_classification.id AS classification_id,commodity_classification.commodity_type from commodity,commodity_association_classification,commodity_classification where commodity_association_classification.commodity_id=commodity.id and commodity_association_classification.classification_id=commodity_classification.id and commodity.id=#{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectCommodityArray" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from commodity
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="commodity">
+    delete from commodity
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="commodity">
+    insert into commodity (id, name, introduce_picture, 
+      introduce_details, price, discount, 
+      remarks, create_date, update_date, 
+      visible)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{introducePicture,jdbcType=VARCHAR},
+      #{introduceDetails,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{discount,jdbcType=DOUBLE},
+      #{remarks,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{visible,jdbcType=BOOLEAN})
+  </insert>
+    <insert id="insertSelective" parameterType="commodity">
+        insert into commodity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="introducePicture != null">
+                introduce_picture,
+            </if>
+            <if test="introduceDetails != null">
+                introduce_details,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="visible != null">
+                visible,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="introducePicture != null">
+                #{introducePicture,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceDetails != null">
+                #{introduceDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DOUBLE},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=DECIMAL},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="visible != null">
+                #{visible,jdbcType=BOOLEAN},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="commodity">
+        update commodity
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="introducePicture != null">
+                introduce_picture = #{introducePicture,jdbcType=VARCHAR},
+            </if>
+            <if test="introduceDetails != null">
+                introduce_details = #{introduceDetails,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=DECIMAL},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="visible != null">
+                visible = #{visible,jdbcType=BOOLEAN},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="commodity">
+    update commodity
+    set name = #{name,jdbcType=VARCHAR},
+      introduce_picture = #{introducePicture,jdbcType=VARCHAR},
+      introduce_details = #{introduceDetails,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      visible = #{visible,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <select id="callCommodityArray" parameterType="basePage" statementType="CALLABLE" resultMap="BaseResultMap">
+<![CDATA[
+        { CALL Query_Pagination(
+                                            #{fields,mode=IN,jdbcType=VARCHAR},
+                                            #{tables,mode=IN,jdbcType=VARCHAR},
+                                            #{wheres,mode=IN,jdbcType=VARCHAR},
+                                            #{grops,mode=IN,jdbcType=VARCHAR},
+                                            #{orders,mode=IN,jdbcType=VARCHAR},
+                                            #{pageindex,mode=IN,jdbcType=INTEGER},
+                                            #{pageCount,mode=IN,jdbcType=INTEGER},
+                                            #{totalSize,mode=OUT,jdbcType=INTEGER},
+                                            #{totalPage,mode=OUT,jdbcType=INTEGER}
+                                        )}
+        ]]>
+    </select>
+</mapper>

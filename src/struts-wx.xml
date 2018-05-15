@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <package name="wxManager" extends="default">
+        <!--初始化微信网页js-sdk环境-->
+        <action name="initJS_SDK.*" class="weChatAction" method="initJS_SDK">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--请求微信access_token获取opendid-->
+        <action name="getOpenid.*" class="weChatAction" method="getOpenid">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--微信服务器转发到第三方服务器入口-->
+        <action name="wxRedirect.*" class="weChatAction" method="wxRedirectMessage"/>
+        <!--创建自定义菜单-->
+        <action name="createMenu.*" class="weChatAction" method="createMenu">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--删除自定义菜单-->
+        <action name="delMenu.*" class="weChatAction" method="delMenu">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--创建微信二维码-->
+        <action name="create_qrcode.*" class="weChatAction" method="create_qrcode">
+            <result name="success" type="stream">
+                <!-- 指定下载文件的文件类型 -->
+                <param name="contentType">image/jpeg</param>
+                <!-- 指定stream方法名称 -->
+                <param name="inputName">inputStream</param>
+                <!-- 文件下载的处理方式，包括内联(inline)和附件(attachment)两种方式，默认为直接显示文件 -->
+                <param name="contentDisposition">attachment;filename=${fileName}</param>
+                <!-- 指定下载文件的缓冲大小 -->
+                <param name="bufferSize">1024</param>
+            </result>
+        </action>
+    </package>
+</struts>

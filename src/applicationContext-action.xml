@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="weChatAction" class="cn.yapin.gzh.action.WeChatAction" p:tokenService-ref="tokenService"
+          p:freeMarkerConfigurer-ref="freeMarkerConfigurer"
+          p:orderService-ref="orderService" p:wxAdapter-ref="wxAdapterImpl" scope="prototype"/>
+    <bean id="commodityManageAction" class="cn.yapin.gzh.action.CommodityManageAction" p:tokenService-ref="tokenService"
+          p:commodityManagementService-ref="commodityManagementService" scope="prototype"/>
+    <bean id="orderManageAction" class="cn.yapin.gzh.action.OrderManageAction" p:orderService-ref="orderService"
+          p:freeMarkerConfigurer-ref="freeMarkerConfigurer" p:tokenService-ref="tokenService"
+          p:printService-ref="printService" scope="prototype"/>
+    <bean id="sellersManagerAction" class="cn.yapin.gzh.action.SellersManagerAction"
+          p:sellersManagerService-ref="sellersManagerService" scope="prototype"/>
+</beans>

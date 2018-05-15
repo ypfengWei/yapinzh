@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yapin.gzh.dao.CommodityAssociationClassificationMapper">
+    <resultMap id="BaseResultMap" type="commodityAssociationClassification">
+        <result column="commodity_id" jdbcType="VARCHAR" property="commodityId"/>
+        <result column="classification_id" jdbcType="INTEGER" property="classificationId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    commodity_id, classification_id
+  </sql>
+    <!--删除第三方表中一个商品与类别关联的一个记录-->
+    <delete id="deleteByPrimaryKey" parameterType="commodityAssociationClassification">
+    delete from commodity_association_classification
+    where commodity_id = #{commodityId,jdbcType=VARCHAR} and classification_id = #{classificationId,jdbcType=INTEGER}
+  </delete>
+    <!--新增一个第三方表中商品与类别关联的记录-->
+    <insert id="insert" parameterType="commodityAssociationClassification">
+    insert into commodity_association_classification (commodity_id, classification_id)
+    values (#{commodityId,jdbcType=VARCHAR}, #{classificationId,jdbcType=INTEGER})
+  </insert>
+    <!--删除第三方表中一个商品与类别关联的所有记录-->
+    <delete id="deleteCommodityRecord" parameterType="commodity">
+        DELETE FROM commodity_association_classification where commodity_id=#{id}
+    </delete>
+    <!--批量新增第三方表中商品与类别关联的记录-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        insert into commodity_association_classification (commodity_id, classification_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.commodityId,jdbcType=VARCHAR},
+            #{item.classificationId,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+</mapper>

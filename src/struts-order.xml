@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <package name="orderManager" extends="default">
+        <!--跳转到订单列表页面-->
+        <action name="orderManagerView.*" class="sellersManagerAction">
+            <result>/WEB-INF/page/orderList.jsp</result>
+        </action>
+        <!--提交订单并预下单-->
+        <action name="addOrder.*" class="orderManageAction" method="addOrder">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--加载订单-->
+        <action name="loadOrders.*" class="orderManageAction" method="loadOrders">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--商户接受订单-->
+        <action name="confirmOrder.*" class="orderManageAction" method="confirmOrder">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+
+        <!--商户取消订单-->
+        <action name="cancelOrder.*" class="orderManageAction" method="cancelOrder">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--订单确认完成-->
+        <action name="completeOrder.*" class="orderManageAction" method="completeOrder">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--微信支付异步通知-->
+        <action name="wxPayNotify.*" class="orderManageAction" method="wxPayNotify"/>
+    </package>
+</struts>

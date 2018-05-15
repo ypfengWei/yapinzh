@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <constant name="struts.multipart.maxSize" value="500701096"/>
+    <constant name="struts.ui.theme" value="simple"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.locale" value="zh_CN "/>
+    <constant name="struts.configuration.xml.reload" value="true"/>
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+    <constant name="struts.action.extension" value="do,action"/>
+    <!-- 对do,action结尾后缀strtus处理其他不处理 -->
+    <package name="default" extends="struts-default,json-default">
+        <!--获取座号-->
+        <action name="getSeatNumber.*" class="weChatAction" method="getSeatNumber">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+        <!--商户登录-->
+        <action name="login.*" class="sellersManagerAction" method="login">
+            <result name="success" type="json">
+                <param name="root">respJSON</param>
+            </result>
+            <result name="error" type="json">
+                <param name="root">respJSON</param>
+            </result>
+        </action>
+    </package>
+    <include file="struts-order.xml"/>
+    <include file="struts-wx.xml"/>
+    <include file="struts-commodity.xml"/>
+</struts>

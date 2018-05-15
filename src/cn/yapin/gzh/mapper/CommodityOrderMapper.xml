@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yapin.gzh.dao.CommodityOrderMapper">
+    <resultMap id="BaseResultMap" type="commodityOrder">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="trade_number" jdbcType="VARCHAR" property="tradeNumber"/>
+        <result column="packing_fee" jdbcType="DOUBLE" property="packingFee"/>
+        <result column="distribution_fee" jdbcType="DOUBLE" property="distributionFee"/>
+        <result column="total_price" jdbcType="DOUBLE" property="totalPrice"/>
+        <result column="user_address" jdbcType="VARCHAR" property="userAddress"/>
+        <result column="sign" jdbcType="CHAR" property="sign"/>
+        <result column="payment_status" jdbcType="BOOLEAN" property="paymentStatus"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="appointment_time" jdbcType="VARCHAR" property="appointmentTime"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="del_flag" jdbcType="CHAR" property="delFlag"/>
+    </resultMap>
+    <resultMap id="diningLocationMap" type="diningLocation">
+        <id column="openid" jdbcType="VARCHAR" property="openid"/>
+        <result column="seat_number" jdbcType="VARCHAR" property="seat_number"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id,openid, trade_number, packing_fee, distribution_fee, total_price, user_address, sign,payment_status,
+    state, remarks, create_date,appointment_time, update_date, del_flag
+  </sql>
+
+    <sql id="DiningLocation_Column_List">
+        openid, seat_number
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from commodity_order
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from commodity_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="commodityOrder">
+    insert into commodity_order (id,openid, trade_number, packing_fee,
+      distribution_fee, total_price, user_address, 
+      sign, state, remarks, create_date, appointment_time,
+      update_date, del_flag)
+    values (#{id,jdbcType=VARCHAR},#{openid,jdbcType=VARCHAR}, #{tradeNumber,jdbcType=VARCHAR}, #{packingFee,jdbcType=DECIMAL},
+      #{distributionFee,jdbcType=DECIMAL}, #{totalPrice,jdbcType=DECIMAL}, #{userAddress,jdbcType=VARCHAR},
+      #{sign,jdbcType=CHAR}, #{state,jdbcType=CHAR}, #{remarks,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},  #{appointmentTime,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="commodityOrder">
+        insert into commodity_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="openid != null">
+                openid,
+            </if>
+            <if test="tradeNumber != null">
+                trade_number,
+            </if>
+            <if test="packingFee != null">
+                packing_fee,
+            </if>
+            <if test="distributionFee != null">
+                distribution_fee,
+            </if>
+            <if test="totalPrice != null">
+                total_price,
+            </if>
+            <if test="userAddress != null">
+                user_address,
+            </if>
+            <if test="sign != null">
+                sign,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="appointmentTime != null">
+                appointment_time,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="delFlag != null">
+                del_flag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="openid != null">
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="tradeNumber != null">
+                #{tradeNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="packingFee != null">
+                #{packingFee,jdbcType=DECIMAL},
+            </if>
+            <if test="distributionFee != null">
+                #{distributionFee,jdbcType=DECIMAL},
+            </if>
+            <if test="totalPrice != null">
+                #{totalPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="userAddress != null">
+                #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                #{sign,jdbcType=CHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="appointmentTime != null">
+                #{appointmentTime,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delFlag != null">
+                #{delFlag,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="commodityOrder">
+        update commodity_order
+        <set>
+            <if test="tradeNumber != null">
+                trade_number = #{tradeNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="packingFee != null">
+                packing_fee = #{packingFee,jdbcType=DECIMAL},
+            </if>
+            <if test="distributionFee != null">
+                distribution_fee = #{distributionFee,jdbcType=DECIMAL},
+            </if>
+            <if test="totalPrice != null">
+                total_price = #{totalPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="userAddress != null">
+                user_address = #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                sign = #{sign,jdbcType=CHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="appointmentTime != null">
+                appointment_time = #{appointmentTime,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="commodityOrder">
+    update commodity_order
+    set trade_number = #{tradeNumber,jdbcType=VARCHAR},
+      packing_fee = #{packingFee,jdbcType=DECIMAL},
+      distribution_fee = #{distributionFee,jdbcType=DECIMAL},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=CHAR},
+      state = #{state,jdbcType=CHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      appointment_time = #{appointmentTime,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <update id="paySuccessCall" parameterType="string">
+        update commodity_order set payment_status=1,state=1,payment_time=CURRENT_TIME where id=#{orderid}
+    </update>
+
+    <select id="getOpenid" parameterType="string" resultType="string">
+        select openid from commodity_order where id = #{orderid}
+    </select>
+
+    <select id="getSeatNumber" parameterType="diningLocation" resultMap="diningLocationMap">
+        select
+        <include refid="DiningLocation_Column_List"/>
+        from dining_location where openid=#{openid}
+    </select>
+    <insert id="insertDiningLocation" parameterType="diningLocation">
+        insert into dining_location (openid, seat_number) values (#{openid},#{seat_number})
+    </insert>
+    <update id="updateDiningLocation" parameterType="diningLocation">
+        update dining_location set seat_number=#{seat_number} where openid=#{openid}
+    </update>
+
+    <resultMap id="OrderAndOrderDetailsList" type="commodityOrder" extends="BaseResultMap">
+        <collection property="orderDetailsList" ofType="orderDetails">
+            <id column="order_details_id" property="id"/>
+            <result column="commodity_name" jdbcType="VARCHAR" property="commodityName"/>
+            <result column="commodity_number" jdbcType="INTEGER" property="commodityNumber"/>
+            <result column="price" jdbcType="DOUBLE" property="price"/>
+        </collection>
+    </resultMap>
+    <select id="callCommodityOrderArray" parameterType="basePage" statementType="CALLABLE"
+            resultMap="OrderAndOrderDetailsList">
+<![CDATA[
+        { CALL Query_Pagination(
+                                            #{fields,mode=IN,jdbcType=VARCHAR},
+                                            #{tables,mode=IN,jdbcType=VARCHAR},
+                                            #{wheres,mode=IN,jdbcType=VARCHAR},
+                                            #{grops,mode=IN,jdbcType=VARCHAR},
+                                            #{orders,mode=IN,jdbcType=VARCHAR},
+                                            #{pageindex,mode=IN,jdbcType=INTEGER},
+                                            #{pageCount,mode=IN,jdbcType=INTEGER},
+                                            #{totalSize,mode=OUT,jdbcType=INTEGER},
+                                            #{totalPage,mode=OUT,jdbcType=INTEGER}
+                                        )}
+        ]]>
+    </select>
+    <select id="businessStatistics" resultType="census">
+        SELECT COUNT(*) as totalNumber,sum(total_price) as turnover from commodity_order where state=4
+    </select>
+</mapper>
